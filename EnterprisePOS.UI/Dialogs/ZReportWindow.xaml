@@ -1,0 +1,77 @@
+<Window x:Class="EnterprisePOS.UI.Dialogs.ZReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cash Register Shift Close &amp; Z-Report Settlement" Height="620" Width="500"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="#0F172A">
+    <Grid Margin="20">
+        <Border Background="#1E293B" CornerRadius="10" Padding="20" BorderBrush="#334155" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/> <!-- Header -->
+                    <RowDefinition Height="*"/>    <!-- Shift Summary Table -->
+                    <RowDefinition Height="Auto"/> <!-- Cash Count Input & Variance -->
+                    <RowDefinition Height="Auto"/> <!-- Actions -->
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                    <TextBlock Text="📑 CASH REGISTER SHIFT CLOSE (Z-REPORT)" Foreground="#38BDF8" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="TxtShiftMeta" Text="Cashier: Head Cashier | Date: 29/07/2026" Foreground="#94A3B8" FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <!-- Shift Metrics -->
+                <Border Grid.Row="1" Background="#0F172A" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+                    <StackPanel>
+                        <Grid Margin="0,3">
+                            <TextBlock Text="Total Invoices Count:" Foreground="#94A3B8" FontSize="13"/>
+                            <TextBlock x:Name="TxtInvoicesCount" Text="0" Foreground="#F8FAFC" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Grid Margin="0,3">
+                            <TextBlock Text="Cash Sales Total:" Foreground="#94A3B8" FontSize="13"/>
+                            <TextBlock x:Name="TxtCashSales" Text="LKR 0" Foreground="#22C55E" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Grid Margin="0,3">
+                            <TextBlock Text="Card Sales Total:" Foreground="#94A3B8" FontSize="13"/>
+                            <TextBlock x:Name="TxtCardSales" Text="LKR 0" Foreground="#38BDF8" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Grid Margin="0,3">
+                            <TextBlock Text="Room Tab Charges Total:" Foreground="#94A3B8" FontSize="13"/>
+                            <TextBlock x:Name="TxtRoomTabSales" Text="LKR 0" Foreground="#F59E0B" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Grid Margin="0,3">
+                            <TextBlock Text="Total Discounts Given:" Foreground="#94A3B8" FontSize="13"/>
+                            <TextBlock x:Name="TxtDiscounts" Text="LKR 0" Foreground="#EF4444" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Separator Background="#334155" Margin="0,8"/>
+                        <Grid Margin="0,3">
+                            <TextBlock Text="GROSS SHIFT REVENUE:" Foreground="#38BDF8" FontSize="15" FontWeight="Bold"/>
+                            <TextBlock x:Name="TxtGrossRevenue" Text="LKR 0" Foreground="#38BDF8" FontSize="16" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Cash Count & Variance -->
+                <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                    <Grid Margin="0,0,0,5">
+                        <TextBlock Text="Physical Cash Counted in Drawer (LKR) *" Foreground="#F8FAFC" FontSize="13" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBox x:Name="TxtActualCash" Text="0" Width="150" HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" TextAlignment="Right" TextChanged="TxtActualCash_TextChanged"/>
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <TextBlock Text="Cash Variance (Shortage / Excess):" Foreground="#94A3B8" FontSize="13"/>
+                        <TextBlock x:Name="TxtVariance" Text="LKR 0" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Actions -->
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="🖨️ Close Shift &amp; Print Z-Report" Click="BtnConfirm_Click" Background="#22C55E" Foreground="#0F172A" Height="42" Margin="0,0,5,0"/>
+                    <Button Grid.Column="1" Content="Cancel" Click="BtnCancel_Click" Background="#334155" Foreground="White" Height="42" Margin="5,0,0,0"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,66 @@
+<UserControl x:Class="EnterprisePOS.UI.Views.KitchenDisplayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#0F172A">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/>    <!-- Active Kitchen Tickets -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1E293B" Padding="16" CornerRadius="12" Margin="0,0,0,16" BorderBrush="#334155" BorderThickness="1">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <TextBlock Text="🍳 KITCHEN DISPLAY SYSTEM (KDS)" Foreground="#F8FAFC" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Text="Real-Time Order Monitor &amp; Preparation Status Tracking" Foreground="#94A3B8" FontSize="12" Margin="0,2,0,0"/>
+                </StackPanel>
+                <Button DockPanel.Dock="Right" Content="🔄 Refresh Orders" Click="BtnRefresh_Click" Background="#0284C7" Foreground="White" Padding="14,8" FontWeight="Bold"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Tickets Container -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ItemsControlKOT">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="300" Margin="10" CornerRadius="12" Padding="16" Background="#1E293B" BorderBrush="#38BDF8" BorderThickness="2">
+                            <StackPanel>
+                                <!-- Ticket Header -->
+                                <DockPanel Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding TicketNumber}" Foreground="#F8FAFC" FontSize="16" FontWeight="Bold"/>
+                                    <Border Background="#0EA5E9" Padding="6,2" CornerRadius="6" HorizontalAlignment="Right">
+                                        <TextBlock Text="{Binding Status}" Foreground="#FFFFFF" FontSize="11" FontWeight="Bold"/>
+                                    </Border>
+                                </DockPanel>
+
+                                <!-- Table or Room -->
+                                <TextBlock Text="{Binding TargetTableOrRoom, StringFormat='📍 Location: {0}'}" Foreground="#38BDF8" FontSize="13" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <Separator Background="#334155" Margin="0,0,0,10"/>
+
+                                <!-- Items List -->
+                                <TextBlock Text="ORDER ITEMS:" Foreground="#94A3B8" FontSize="11" FontWeight="Bold" Margin="0,0,0,4"/>
+                                <TextBlock Text="{Binding OrderDetailsJson}" Foreground="#F8FAFC" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+                                <Separator Background="#334155" Margin="0,0,0,10"/>
+
+                                <!-- Action Buttons -->
+                                <UniformGrid Columns="2" Rows="2">
+                                    <Button Content="🍳 Preparing" Tag="{Binding Id}" Click="BtnSetPreparing_Click" Background="#0284C7" Foreground="White" FontSize="11" Margin="2"/>
+                                    <Button Content="✅ Ready" Tag="{Binding Id}" Click="BtnSetReady_Click" Background="#22C55E" Foreground="#0F172A" FontSize="11" FontWeight="Bold" Margin="2"/>
+                                    <Button Content="🚚 Served" Tag="{Binding Id}" Click="BtnSetServed_Click" Background="#64748B" Foreground="White" FontSize="11" Margin="2"/>
+                                    <Button Content="❌ Cancel" Tag="{Binding Id}" Click="BtnSetCancelled_Click" Background="#EF4444" Foreground="White" FontSize="11" Margin="2"/>
+                                </UniformGrid>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

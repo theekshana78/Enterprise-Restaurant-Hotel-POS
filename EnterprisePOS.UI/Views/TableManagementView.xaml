@@ -1,0 +1,105 @@
+<UserControl x:Class="EnterprisePOS.UI.Views.TableManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#0F172A">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Header & Filters -->
+            <RowDefinition Height="*"/>    <!-- Table Grid -->
+            <RowDefinition Height="Auto"/> <!-- Legend & Quick Actions -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1E293B" Padding="16" CornerRadius="12" Margin="0,0,0,16" BorderBrush="#334155" BorderThickness="1">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <TextBlock Text="🪑 RESTAURANT TABLE MANAGEMENT" Foreground="#F8FAFC" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Text="Visual Table Grid • Status Tracking • Reservations &amp; Table Transfers" Foreground="#94A3B8" FontSize="12" Margin="0,2,0,0"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button Content="🔄 Refresh Grid" Click="BtnRefresh_Click" Background="#0284C7" Foreground="White" Margin="4,0"/>
+                    <Button Content="➕ Add Table" Click="BtnAddTable_Click" Background="#22C55E" Foreground="#0F172A" Margin="4,0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Visual Table Grid -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ItemsControlTables">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="210" Height="140" Margin="10" CornerRadius="12" Padding="14" BorderThickness="2" Cursor="Hand">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="#1E293B"/>
+                                    <Setter Property="BorderBrush" Value="#334155"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="Available">
+                                            <Setter Property="BorderBrush" Value="#22C55E"/>
+                                            <Setter Property="Background" Value="#064E3B"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Occupied">
+                                            <Setter Property="BorderBrush" Value="#EF4444"/>
+                                            <Setter Property="Background" Value="#7F1D1D"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Reserved">
+                                            <Setter Property="BorderBrush" Value="#F59E0B"/>
+                                            <Setter Property="Background" Value="#78350F"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Cleaning">
+                                            <Setter Property="BorderBrush" Value="#38BDF8"/>
+                                            <Setter Property="Background" Value="#0C4A6E"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <DockPanel Grid.Row="0">
+                                    <TextBlock Text="{Binding TableNumber}" Foreground="#F8FAFC" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Capacity, StringFormat='Seats: {0}'}" Foreground="#CBD5E1" FontSize="11" HorizontalAlignment="Right"/>
+                                </DockPanel>
+
+                                <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,4">
+                                    <TextBlock Text="{Binding Status, StringFormat='STATUS: {0}'}" Foreground="#F8FAFC" FontSize="12" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding CurrentGuestName, StringFormat='Guest: {0}'}" Foreground="#94A3B8" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding AssignedWaiter, StringFormat='Waiter: {0}'}" Foreground="#94A3B8" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                </StackPanel>
+
+                                <Button Grid.Row="2" Content="Manage Table" Tag="{Binding Id}" Click="BtnManageTable_Click" Background="#334155" Foreground="White" FontSize="10" Height="24" Padding="4,0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Legend -->
+        <Border Grid.Row="2" Background="#1E293B" Padding="12" CornerRadius="10" Margin="0,16,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border Width="14" Height="14" CornerRadius="7" Background="#22C55E" Margin="0,0,6,0"/>
+                <TextBlock Text="Available" Foreground="#CBD5E1" Margin="0,0,20,0" FontSize="12"/>
+
+                <Border Width="14" Height="14" CornerRadius="7" Background="#EF4444" Margin="0,0,6,0"/>
+                <TextBlock Text="Occupied" Foreground="#CBD5E1" Margin="0,0,20,0" FontSize="12"/>
+
+                <Border Width="14" Height="14" CornerRadius="7" Background="#F59E0B" Margin="0,0,6,0"/>
+                <TextBlock Text="Reserved" Foreground="#CBD5E1" Margin="0,0,20,0" FontSize="12"/>
+
+                <Border Width="14" Height="14" CornerRadius="7" Background="#38BDF8" Margin="0,0,6,0"/>
+                <TextBlock Text="Cleaning" Foreground="#CBD5E1" FontSize="12"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

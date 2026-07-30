@@ -1,0 +1,91 @@
+<UserControl x:Class="EnterprisePOS.UI.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#0F172A">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/>    <!-- Settings Panels -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1E293B" Padding="16" CornerRadius="12" Margin="0,0,0,16" BorderBrush="#334155" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="⚙️ SYSTEM SETTINGS &amp; HARDWARE CONFIGURATION" Foreground="#F8FAFC" FontSize="20" FontWeight="Bold"/>
+                <TextBlock Text="Manage Restaurant Profile • Tax &amp; Printers • Database Backup &amp; Restore" Foreground="#94A3B8" FontSize="12" Margin="0,2,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Settings Cards Grid -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <UniformGrid Columns="2">
+                <!-- Card 1: Restaurant Info -->
+                <Border Background="#1E293B" CornerRadius="10" Padding="18" Margin="8" BorderBrush="#334155" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="🏬 Restaurant &amp; Hotel Details" Foreground="#38BDF8" FontSize="16" FontWeight="Bold" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Business Name" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBox x:Name="TxtBusinessName" Text="ABC Hotel &amp; Restaurant" Margin="0,4,0,10"/>
+
+                        <TextBlock Text="Address Header" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBox x:Name="TxtAddress" Text="123 Galle Road, Colombo, Sri Lanka" Margin="0,4,0,10"/>
+
+                        <TextBlock Text="Phone Number" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBox x:Name="TxtPhone" Text="+94 11 234 5678" Margin="0,4,0,15"/>
+
+                        <Button Content="💾 Save Profile" Click="BtnSaveProfile_Click" Background="#22C55E" Foreground="#0F172A" Height="36" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 2: Tax & Service Charges -->
+                <Border Background="#1E293B" CornerRadius="10" Padding="18" Margin="8" BorderBrush="#334155" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="🧾 Tax &amp; Service Charge Settings" Foreground="#38BDF8" FontSize="16" FontWeight="Bold" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="VAT Rate (%)" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBox x:Name="TxtVatRate" Text="0.00" Margin="0,4,0,10"/>
+
+                        <TextBlock Text="Service Charge Rate (%)" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBox x:Name="TxtServiceChargeRate" Text="10.00" Margin="0,4,0,10"/>
+
+                        <CheckBox x:Name="ChkAutoPrintKOT" Content="Auto-Print KOT on Sale Completion" Foreground="#F8FAFC" IsChecked="True" Margin="0,4,0,15"/>
+
+                        <Button Content="💾 Save Tax Rules" Click="BtnSaveTax_Click" Background="#22C55E" Foreground="#0F172A" Height="36" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 3: Thermal Printers & Hardware -->
+                <Border Background="#1E293B" CornerRadius="10" Padding="18" Margin="8" BorderBrush="#334155" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="🖨️ Hardware &amp; Printer Setup" Foreground="#38BDF8" FontSize="16" FontWeight="Bold" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Receipt Printer (80mm Thermal)" Foreground="#94A3B8" FontSize="12"/>
+                        <ComboBox x:Name="CmbReceiptPrinter" Margin="0,4,0,10" SelectedIndex="0">
+                            <ComboBoxItem Content="Default System Printer"/>
+                            <ComboBoxItem Content="POS-80 Thermal Printer"/>
+                        </ComboBox>
+
+                        <TextBlock Text="Kitchen KOT Printer" Foreground="#94A3B8" FontSize="12"/>
+                        <ComboBox x:Name="CmbKOTPrinter" Margin="0,4,0,15" SelectedIndex="0">
+                            <ComboBoxItem Content="Kitchen Thermal Printer"/>
+                            <ComboBoxItem Content="Default System Printer"/>
+                        </ComboBox>
+
+                        <Button Content="🖨️ Test Print Slip" Click="BtnTestPrint_Click" Background="#0284C7" Foreground="White" Height="36"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 4: Database Backup & Restore -->
+                <Border Background="#1E293B" CornerRadius="10" Padding="18" Margin="8" BorderBrush="#334155" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="💾 Database Backup &amp; Maintenance" Foreground="#38BDF8" FontSize="16" FontWeight="Bold" Margin="0,0,0,12"/>
+                        <TextBlock Text="Engine: SQLite Embedded DB (pos_enterprise.db)" Foreground="#94A3B8" FontSize="12" Margin="0,0,0,15"/>
+
+                        <Button Content="📦 Backup Database Now" Click="BtnBackup_Click" Background="#EAB308" Foreground="#0F172A" Height="38" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <Button Content="🔄 Restore Database from Backup" Click="BtnRestore_Click" Background="#EF4444" Foreground="White" Height="38" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

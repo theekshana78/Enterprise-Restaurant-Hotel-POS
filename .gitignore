@@ -1,0 +1,20 @@
+# Visual Studio & .NET Build Artifacts
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosset
+*.sln.docstates
+
+# Database Files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+pos_enterprise.db
+
+# Publish & Packages
+publish/
+*.nupkg
+packages/
